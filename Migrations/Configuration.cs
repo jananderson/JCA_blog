@@ -1,4 +1,4 @@
-namespace JCA_blog.Migrations
+namespace JCA_blog.Migrations //testing github
 {
     using JCA_blog.Models;
     using Microsoft.AspNet.Identity;
