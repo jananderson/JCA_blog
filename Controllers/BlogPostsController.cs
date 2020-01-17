@@ -36,6 +36,7 @@ namespace JCA_blog.Controllers
             return View(blogPost);
         }
 
+        [Authorize (Roles="Admin")]
         // GET: BlogPosts/Create
         public ActionResult Create()
         {

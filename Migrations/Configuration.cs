@@ -1,4 +1,4 @@
-namespace JCA_blog.Migrations //testing github
+namespace JCA_blog.Migrations
 {
     using JCA_blog.Models;
     using Microsoft.AspNet.Identity;
@@ -37,8 +37,25 @@ namespace JCA_blog.Migrations //testing github
             {
                 roleManager.Create(new IdentityRole { Name = "Guest" });
             }
+
+
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            if (!context.Users.Any(u => u.Email == "laymanscode@gmail.com"))
+            if (!context.Users.Any(u => u.Email == "user@email.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "user@email.com",
+                    Email = "user@email.com",
+                    FirstName = "User",
+                    LastName = "Email",
+                    DisplayName = "UserEmail"
+                }, "Abc&123!");
+            }
+            var userId = userManager.FindByEmail("moderator@coderfoundry.com").Id;
+            userManager.AddToRole(userId, "Admin");
+
+            userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            if (!context.Users.Any(u => u.Email == "moderator@coderfoundry.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
@@ -49,8 +66,10 @@ namespace JCA_blog.Migrations //testing github
                     DisplayName = "CFMOD"
                 }, "Abc&123!");
             }
-            var userId = userManager.FindByEmail("jchristiananderson@gmail.com").Id;
-            userManager.AddToRole(userId, "Admin");
+            userId = userManager.FindByEmail("moderator@coderfoundry.com").Id;
+
+            userManager.AddToRole(userId, "Moderator");
+
         }
     }
 }
