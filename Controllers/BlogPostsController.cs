@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using JCA_blog.Helpers;
 using JCA_blog.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace JCA_blog.Controllers
 {
@@ -17,9 +19,35 @@ namespace JCA_blog.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: BlogPosts
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchStr)
         {
-            return View(db.Posts.ToList());
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
+            int pageSize = 5; // the number of posts you want to display per page 
+            int pageNumber = (page ?? 1);
+            return View(blogList.ToPagedList(pageNumber, pageSize));
+        }
+
+        // POST
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            IQueryable<BlogPost> result = null;
+            if (searchStr != null)
+            {
+                result = db.Posts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) ||
+                p.Body.Contains(searchStr) ||
+                 p.Comments.Any(c => c.Body.Contains(searchStr) ||
+                 c.Author.FirstName.Contains(searchStr) ||
+                 c.Author.LastName.Contains(searchStr) ||
+                 c.Author.DisplayName.Contains(searchStr) ||
+                 c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.Posts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
         }
 
         // GET: BlogPosts/Details/Slug

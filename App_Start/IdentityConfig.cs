@@ -11,26 +11,67 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using JCA_blog.Models;
+using System.Web.Configuration;
+using System.Net.Mail;
+using System.Net;
+
 
 namespace JCA_blog
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await SendMailAsync(message);
+            //return Task.FromResult(0);
+        }
+        public async Task<bool> SendMailAsync(IdentityMessage message)
+        {
+            var GmailUsername = WebConfigurationManager.AppSettings["username"];
+            var GmailPassword = WebConfigurationManager.AppSettings["password"];
+            var host = WebConfigurationManager.AppSettings["host"];
+            int port = Convert.ToInt32(WebConfigurationManager.AppSettings["port"]);
+
+            var from = new MailAddress(WebConfigurationManager.AppSettings["emailfrom"], "MyPortfolio");
+
+            var email = new MailMessage(from, new MailAddress(message.Destination))
+            {
+                Subject = message.Subject,
+                Body = message.Body,
+                IsBodyHtml = true,
+            };
+
+            using (var smtp = new SmtpClient()
+            {
+                Host = host,
+                Port = port,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(GmailUsername, GmailPassword)
+            })
+                try
+                {
+                    await smtp.SendMailAsync(email);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return false;
+                }
         }
     }
 
-    public class SmsService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
+        public class SmsService : IIdentityMessageService
         {
-            // Plug in your SMS service here to send a text message.
-            return Task.FromResult(0);
-        }
-    }
+            public Task SendAsync(IdentityMessage message)
+            {
+                // Plug in your SMS service here to send a text message.
+                return Task.FromResult(0);
+            }
+        };
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
