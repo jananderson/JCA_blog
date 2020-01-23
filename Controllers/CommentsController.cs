@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Blog.Models;
 using JCA_blog.Models;
+using Microsoft.AspNet.Identity;
 
 namespace JCA_blog.Controllers
 {
@@ -18,7 +19,7 @@ namespace JCA_blog.Controllers
         // GET: Comments
         public ActionResult Index()
         {
-            var comments = db.Comments.Include(c => c.Author);
+            var comments = db.Comments.Include(c => c.Author).Include(c => c.Post);
             return View(comments.ToList());
         }
 
@@ -41,24 +42,29 @@ namespace JCA_blog.Controllers
         public ActionResult Create()
         {
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Title");
             return View();
         }
 
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,PostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.Created = DateTimeOffset.Now;
+                comment.AuthorId = User.Identity.GetUserId();
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Title", comment.PostId);
             return View(comment);
         }
 
@@ -75,6 +81,7 @@ namespace JCA_blog.Controllers
                 return HttpNotFound();
             }
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Title", comment.PostId);
             return View(comment);
         }
 
@@ -92,6 +99,7 @@ namespace JCA_blog.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
+            ViewBag.PostId = new SelectList(db.Posts, "Id", "Title", comment.PostId);
             return View(comment);
         }
 

@@ -72,3 +72,27 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<h3>Comments (@Model.Comments.Count)</h3>
+<div class="row">
+    @foreach (var item in Model.Comments)
+    {
+        <div class="col-md-12">
+            <div class="comment">
+                <div class="about_commenter">
+                    <h5><a href="#">@item.Author.FirstName @item.Author.LastName</a></h5>
+                    <p>item.Body</p>
+                    @*<p>@<a href="#">Reply</a></p>*@
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+<div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        show comments
+    }
+    else {
+        <p>@Html.ActionLink("Please Login to Leave a comment", "Login", "Account", new { returnUrl = Url.Action("Details", "Blogs", new { Slug = Model.Slug }) }, new { @class = "btn btn-sm btn-warning" })</p>
+    }

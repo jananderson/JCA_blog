@@ -51,7 +51,7 @@ namespace JCA_blog.Migrations
                     DisplayName = "UserEmail"
                 }, "Abc&123!");
             }
-            var userId = userManager.FindByEmail("moderator@coderfoundry.com").Id;
+            var userId = userManager.FindByEmail("user@email.com").Id;
             userManager.AddToRole(userId, "Admin");
 
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
