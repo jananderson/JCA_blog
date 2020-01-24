@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
+using Owin.Security.Providers.LinkedIn;
 using JCA_blog.Models;
 
 namespace JCA_blog
@@ -58,11 +59,13 @@ namespace JCA_blog
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1052867431002-sil6tvekc0jqscgiavijjsua0b6s7u40.apps.googleusercontent.com",
+                ClientSecret = "DHikSypOBiyj9rx0FGqHSbGS"
+            });
+
+            app.UseLinkedInAuthentication("78z8za6y33flpa", "lmN9VphUwPZl4b10");
         }
     }
 }

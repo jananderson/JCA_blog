@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace JCA_blog.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()

@@ -10,6 +10,7 @@ using JCA_blog.Models;
 
 namespace JCA_blog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

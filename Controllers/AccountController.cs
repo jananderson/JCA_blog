@@ -12,6 +12,7 @@ using JCA_blog.Models;
 
 namespace JCA_blog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
