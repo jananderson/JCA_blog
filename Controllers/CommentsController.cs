@@ -61,7 +61,11 @@ namespace JCA_blog.Controllers
                 comment.AuthorId = User.Identity.GetUserId();
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                //Using the PostId from the comment to find the Blog
+                var slug = db.Posts.FirstOrDefault(b => b.Id == comment.PostId).Slug;
+                //Using the slug variable from above to redirect to theBlog Details
+                return RedirectToAction("Details","BlogPosts",new { Slug=slug});
             }
 
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
@@ -70,6 +74,7 @@ namespace JCA_blog.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize (Roles ="Moderator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +95,7 @@ namespace JCA_blog.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Moderator")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,PostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
         {

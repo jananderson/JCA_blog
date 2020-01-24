@@ -2,7 +2,6 @@
 @using PagedList;
 @using PagedList.Mvc;
 
-
 @{
     ViewBag.Title = "Index";
 }
@@ -25,29 +24,28 @@
         </button>
     </div>
 }
-
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Created)
+            Created
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Updated)
+            Updated
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Slug)
+            Slug
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Body)
+            Body
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MediaURL)
+            MediaURL
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Published)
+            Published
         </th>
         <th></th>
     </tr>
@@ -63,12 +61,13 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+                @Html.ActionLink("Details", "Details", new { Slug = item.Slug })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Slug)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Body)
+                @Html.Raw(item.Body)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => @item.MediaURL)
@@ -83,13 +82,16 @@
                 @Html.DisplayFor(modelItem => item.Published)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { Slug = item.Slug }) |
+                @if (User.IsInRole("Admin"))
+                {
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+                @Html.ActionLink("Details", "Details", new { Slug = item.Slug }) 
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
             </td>
         </tr>
     }
 
 </table>
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)of @Model.PageCount@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr=ViewBag.Search }))
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)of @Model.PageCount@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))

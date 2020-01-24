@@ -421,7 +421,7 @@ namespace JCA_blog.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "BlogPosts");
         }
 
         //
@@ -478,7 +478,7 @@ namespace JCA_blog.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "BlogPosts");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

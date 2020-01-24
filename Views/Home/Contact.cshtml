@@ -1,4 +1,4 @@
-﻿@model[JCA_blog].Models.EmailModel
+﻿@model JCA_blog.Models.EmailModel
 @{
     ViewBag.Title = "Contact";
 }
@@ -11,39 +11,41 @@
     <hr />
 
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div ="form-group">
+    <div class ="form-group">
         @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
-        <div ="col-md-10">
+        <div class ="col-md-10">
             @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.FromName)
-            </div>
-            </div>
-            <div ="form-group">
-                @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
-                <div ="col-md-10">
-                    @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control", placeholder = "example@email.com" })
-                    @Html.ValidationMessageFor(m => m.FromEmail)</div>
-                    </div>
-                    <div ="form-group">
-                        <divclass ="col-md-offset-2 col-md-10">
-                            <inputtype ="submit" class="btn btn-primary" value="Send" />
-                            </div>
-                            </div>
+        </div>
+    </div>
+    <div class ="form-group">
+        @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
+        <div class ="col-md-10">
+            @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control", placeholder = "example@email.com" })
+            @Html.ValidationMessageFor(m => m.FromEmail)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Body, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Body, new { htmlAttributes = new { @class = "form-control", rows = "5" } })
+            @Html.ValidationMessageFor(m => m.Body)
+            <input type="submit" class="btn btn-primary" value="Send" />
+        </div>
+    </div>
+    <h2>@ViewBag.Title.</h2>
+    <h3>@ViewBag.Message</h3>
 
+    <address>
+        One Microsoft Way<br />
+        Redmond, WA 98052-6399<br />
+        <abbr title="Phone">P:</abbr>
+        425.555.0100
+    </address>
 
-
-
-                            <h2>@ViewBag.Title.</h2>
-                            <h3>@ViewBag.Message</h3>
-
-                            <address>
-                                One Microsoft Way<br />
-                                Redmond, WA 98052-6399<br />
-                                <abbr title="Phone">P:</abbr>
-                                425.555.0100
-                            </address>
-
-                            <address>
-                                <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-                                <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-                            </address>
+    <address>
+        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>
+ 
+}
