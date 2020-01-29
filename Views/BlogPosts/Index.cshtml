@@ -6,92 +6,236 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @if (User.IsInRole("Admin"))
-    {
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-xs" })
-    }
-</p>
-
-@using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
-{
-    <div class="controls controls-row search-row">
-        <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search">
-        <button id="searchStr" name="searchStr" class="btn btn-success" type="submit">
-            <i class="icon-search"></i>
-        </button>
-    </div>
-}
-<table class="table">
-    <tr>
-        <th>
-            Created
-        </th>
-        <th>
-            Updated
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Slug
-        </th>
-        <th>
-            Body
-        </th>
-        <th>
-            MediaURL
-        </th>
-        <th>
-            Published
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-                @Html.ActionLink("Details", "Details", new { Slug = item.Slug })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Slug)
-            </td>
-            <td>
-                @Html.Raw(item.Body)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => @item.MediaURL)
-            </td>
-            <td>
-                @if (item.MediaURL != null)
-                {
-                    <img class="img-responsive" src="@item.MediaURL" alt="">
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Published)
-            </td>
-            <td>
+<section class="ct-mediaSection ct-decoration--type6-rotate ct-u-paddingBoth80 ct-blog" id="works">
+    <div class="container">
+        <header class="ct-pageSectionHeader text-center">
+            <h2 class="ct-js-animation--item ct-motive-text" data-when="enter" data-from="0" data-to="1" data-opacity="0" data-translatey="-50"><span class="ct-u-hdr3">Jan's</span> blog</h2>
+        </header>
+        <div class="row" style="margin-bottom: 20px; margin-left: 20px;">
+            <p>
+                <br />
                 @if (User.IsInRole("Admin"))
                 {
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
-                @Html.ActionLink("Details", "Details", new { Slug = item.Slug }) 
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-xs" })
                 }
-            </td>
-        </tr>
-    }
+                <br />
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                @foreach (var item in Model)
+                {
+                    <article class="ct-articleBox ct-articleBox--default">
+                        <div class="ct-articleBox-media">
+                            <img src="~/Template/assets/images/content/computerservice/computer-blog-image-1.jpg" alt=""/>
+                        </div>
+                        <div class="ct-articleBox-titleBox">
+                            <div class="ct-articleBox-meta">
+                                <span>@Html.DisplayFor(modelItem => item.Created)</span>
+                            </div>
+                            <a href="blog-single.html"><h4>@Html.DisplayFor(modelItem => item.Title)</h4></a>
+                        </div>
+                        <div class="ct-articleBox-description">
+                            @Html.Raw(item.Body)
+                        </div>
+                        <a class="ct-articleBox-button">
 
-</table>
+                            @Html.ActionLink("Read more", "Details", new { Slug = item.Slug })
+                        </a>
+                        <div class="row">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @Html.ActionLink(" Edit |", "Edit", new { id = item.Id })
+                                @Html.ActionLink(" Details |", "Details", new { Slug = item.Slug })
+                                @Html.ActionLink(" Delete ", "Delete", new { id = item.Id })
+                            }
+                        </div>
+                    </article>
+                }
+                <div class="ct-pagination">
+                    <div class="col-md-2">
+                        <ul class="pager text-left">
+                            @*<li><a href="#"><i class="fa fa-angle-left"></i>  Previous page</a></li>*@
+                        </ul>
+                    </div>
+                    <div class="col-md-8 text-center">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+                    </div>
+                    <div class="col-md-2">
+                        <ul class="pager text-right">
+                            @*<li><a href="#">Next page  <i class="fa fa-angle-right"></i></a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 ct-js-sidebar">
+                <div class="row">
+                    <div class="col-sm-6 col-md-12">
+                        <section class="widget">
+                            <div class="widget-inner">
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)of @Model.PageCount@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+                                <div class="ct-search-widget">
+                                    @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+                                    {
+                                        <div class="form-group ct-form-group-label--float">
+                                            <input id="searchStr" name="searchStr" class="form-control input-lg" type="text" placeholder="Search">
+                                            <div class="ct-input-group-btn">
+                                                <button id="searchStr" name="searchStr" class="btn btn-primary" type="submit">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-sm-6 col-md-12">
+                        <section class="widget">
+                            <div class="widget-inner">
+                                <h4 class="text-uppercase">Categories</h4>
+                                <ul>
+                                    <li class="current-cat">
+                                        <a href="#" title="View all posts filed under Technologhy">
+                                            Creative<span class="ct-blogWidget-count"> (2)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="View all posts filed under Creative Ideas">
+                                            Design<span class="ct-blogWidget-count"> (9)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="View all posts filed under Latest Gadgets">
+                                            Image<span class="ct-blogWidget-count"> (2)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="View all posts filed under Inspirations">
+                                            Photography<span class="ct-blogWidget-count"> (9)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="View all posts filed under Inspirations">
+                                            Videos<span class="ct-blogWidget-count"> (4)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="View all posts filed under Inspirations">
+                                            Wordpress<span class="ct-blogWidget-count"> (4)</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-sm-6 col-md-12">
+                        <section class="widget ct-widget-latestPosts">
+                            <div class="widget-inner">
+                                <h4 class="text-uppercase">Recent Posts</h4>
+                                <ul>
+                                    <li>
+                                        <div class="widget-latest-posts-content">
+                                            <span>
+                                                March 4, 2014
+                                            </span>
+                                            <a href="#" title="View Post">This is a standard post format with preview picture</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="widget-latest-posts-content">
+                                            <span>
+                                                March 4, 2014
+                                            </span>
+                                            <a href="#" title="View Post">Gallery post format: post with multiple images</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="widget-latest-posts-content">
+                                            <span>
+                                                March 4, 2014
+                                            </span>
+                                            <a href="#" title="View Post">Link post format</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-sm-6 col-md-12">
+                        <section class="widget ct-widget-archives">
+                            <div class="widget-inner">
+                                <h4 class="text-uppercase">Archives</h4>
+                                <select class="ct-js-select">
+                                    <option value="month">Select  month</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                </select>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-sm-6 col-md-12">
+                        <section class="widget ct-widget-archives">
+                            <div class="widget-inner">
+                                <h4 class="text-uppercase">Tags</h4>
+                                <div class="tagcloud">
+                                    <a href="#" title="">Creative</a>
+                                    <a href="#" title="">Design</a>
+                                    <a href="#" title="">Image</a>
+                                    <a href="#" title="">Photography</a>
+                                    <a href="#" title="">Videos</a>
+                                    <a href="#" title="">Wordpress</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+
+    @*@foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Updated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.ActionLink("Details", "Details", new { Slug = item.Slug })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <td>
+                    @Html.Raw(item.Body)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => @item.MediaURL)
+                </td>
+                <td>
+                    @if (item.MediaURL != null)
+                    {
+                        <img class="img-responsive" src="@item.MediaURL" alt="">
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Published)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        @Html.ActionLink("Details", "Details", new { Slug = item.Slug })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    }
+                </td>
+            </tr>
+        }*@

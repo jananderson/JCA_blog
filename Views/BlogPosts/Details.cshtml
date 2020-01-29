@@ -5,7 +5,247 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+
+    <section class="ct-mediaSection ct-decoration--type6-rotate ct-u-paddingBoth80 ct-blog ct-blog-single" id="works">
+        <div class="container">
+            <header class="ct-pageSectionHeader text-center">
+                <h2 class="ct-js-animation--item ct-motive-text" data-when="enter" data-from="0" data-to="1" data-opacity="0" data-translatey="-50"><span class="ct-u-hdr3">My</span> blog</h2>
+            </header>
+            <div class="row">
+                <div class="col-md-9">
+                    <article class="ct-articleBox ct-articleBox--default">
+                        <div class="ct-articleBox-media">
+                            <img src="~/Template/assets/images/content/computerservice/computer-blog-image-1.jpg" alt="">
+                        </div>
+                        <div class="ct-articleBox-titleBox">
+                            <div class="ct-articleBox-meta">
+                                <span>@Html.DisplayFor(model => model.Created)</span>
+                            </div>
+                            <h4>@Html.DisplayNameFor(model => model.Title)</h4>
+                        </div>
+                        <div class="ct-articleBox-description">
+                            <p>
+                                @Html.Raw(Model.Body)
+                            </p>
+                        </div>
+                        <div class="panel ct-panel--blogTags">
+                            <span>Tags:</span>
+                            <a class="text-lowercase" href="#">creative</a>,
+                            <a class="text-lowercase" href="#">design</a>,
+                            <a class="text-lowercase" href="#">image</a>,
+                            <a class="text-lowercase" href="#">photography</a>,
+                            <a class="text-lowercase" href="#">videos</a>,
+                            <a class="text-lowercase" href="#">wordpress</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </article>
+                    <div class="ct-share--socials">
+                        <div class="ct-item--contact ct-socials--contact">
+                            <span>Share this story</span>
+                            <a href="https://www.facebook.com/createITpl" class="ct-socials--square-rounded pull-right"><i class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/createitpl" class="ct-socials--square-rounded pull-right"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="ct-socials--square-rounded pull-right"><i class="fa fa-google-plus"></i></a>
+                            <a href="#" class="ct-socials--square-rounded pull-right"><i class="fa fa-pinterest"></i></a>
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+                    <section>
+                        <p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var comment = new Comment();
+                                <!--Comments-->
+                                using (Html.BeginForm("Create", "Comments", new { BlogId = Model.Id }, FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("Comment.PostId", Model.Id)
+                                    <div class="form-group rounded">
+                                        <div class="row">
+                                            <div class="col-md-10 mx-auto">
+                                                @Html.TextArea("Comment.Body", new { @class = "form-control", placeholder = "Leave comment here...", rows = "2" })
+                                            </div>
+                                            <div class="col-md-2 mx-auto">
+                                                <input type="submit" value="Comment" class="btn btn-rose" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                if (Model.Comments != null)
+                                {
+                                    foreach (var item in Model.Comments)
+                                    {
+                                        <div class="card">
+                                            <div class="card-body">
+                                                @item.Body
+                                            </div>
+                                            <hr />
+                                            <div class="card-footer">
+                                                <div class="col-lg-6 col-md-6">
+                                                    @item.Created.ToString("MMM dd, yyyy")
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 text-center">
+                                                    @item.Author.FirstName  @item.Author.LastName
+                                                </div>
+                                                <div class="col-lg-2 col-md-2">
+                                                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                                    {
+                                                        <a class="btn btn-rose btn-fab btn-round" href="@Url.Action("Edit", "Comments", new { id = item.Id })"><i class="material-icons">edit</i></a>
+                                                        <a class="btn btn-rose btn-fab btn-round" href="@Url.Action("Delete", "Comments", new { id = item.Id })"><i class="material-icons">delete</i></a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <h4>Start the Conversation by leaving a comment above!!!</h4>
+                                }
+                            }
+                            else
+                            {
+                                <h4 class="text-center">Login or Register to see and leave comments</h4>
+                            <p class="text-center">@Html.ActionLink("Login", "Login", "Account", new { returnUrl = Url.Action("Details", "BlogPosts", new { Slug = Model.Slug }) }, new { @class = "btn btn-rose" })</p>
+                        }
+                            </p>
+                        </section>
+                    </div>
+                    <p>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+                        }
+                    </p>
+                    <p>
+                        @Html.ActionLink("Back to List", "Index")
+                    </p>
+                    <div class="col-md-3 ct-js-sidebar">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-12">
+                                <section class="widget">
+                                    <div class="widget-inner">
+                                        <div class="ct-search-widget">
+                                            <div class="form-group ct-form-group-label--float">
+                                                <input id="search" placeholder="Name (required)" required type="text" name="field[]" class="form-control input-lg">
+                                                <label for="search">Search this blog</label>
+                                                <div class="ct-input-group-btn">
+                                                    <button class="btn btn-primary">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-sm-6 col-md-12">
+                                <section class="widget">
+                                    <div class="widget-inner">
+                                        <h4 class="text-uppercase">Categories</h4>
+                                        <ul>
+                                            <li class="current-cat">
+                                                <a href="#" title="View all posts filed under Technologhy">
+                                                    Creative<span class="ct-blogWidget-count"> (2)</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" title="View all posts filed under Creative Ideas">
+                                                    Design<span class="ct-blogWidget-count"> (9)</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" title="View all posts filed under Latest Gadgets">
+                                                    Image<span class="ct-blogWidget-count"> (2)</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" title="View all posts filed under Inspirations">
+                                                    Photography<span class="ct-blogWidget-count"> (9)</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" title="View all posts filed under Inspirations">
+                                                    Videos<span class="ct-blogWidget-count"> (4)</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" title="View all posts filed under Inspirations">
+                                                    Wordpress<span class="ct-blogWidget-count"> (4)</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-sm-6 col-md-12">
+                                <section class="widget ct-widget-latestPosts">
+                                    <div class="widget-inner">
+                                        <h4 class="text-uppercase">Recent Posts</h4>
+                                        <ul>
+                                            <li>
+                                                <div class="widget-latest-posts-content">
+                                                    <span>
+                                                        March 4, 2014
+                                                    </span>
+                                                    <a href="#" title="View Post">This is a standard post format with preview picture</a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="widget-latest-posts-content">
+                                                    <span>
+                                                        March 4, 2014
+                                                    </span>
+                                                    <a href="#" title="View Post">Gallery post format: post with multiple images</a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="widget-latest-posts-content">
+                                                    <span>
+                                                        March 4, 2014
+                                                    </span>
+                                                    <a href="#" title="View Post">Link post format</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-sm-6 col-md-12">
+                                <section class="widget ct-widget-archives">
+                                    <div class="widget-inner">
+                                        <h4 class="text-uppercase">Archives</h4>
+                                        <select class="ct-js-select">
+                                            <option value="month">Select  month</option>
+                                            <option value="January">January</option>
+                                            <option value="February">February</option>
+                                            <option value="March">March</option>
+                                        </select>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-sm-6 col-md-12">
+                                <section class="widget ct-widget-archives">
+                                    <div class="widget-inner">
+                                        <h4 class="text-uppercase">Tags</h4>
+                                        <div class="tagcloud">
+                                            <a href="#" title="">Creative</a>
+                                            <a href="#" title="">Design</a>
+                                            <a href="#" title="">Image</a>
+                                            <a href="#" title="">Photography</a>
+                                            <a href="#" title="">Videos</a>
+                                            <a href="#" title="">Wordpress</a>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+@*<h2>Details</h2>
 
 <div>
     <h4>BlogPost</h4>
@@ -69,17 +309,23 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+}
+</p>
+<p>
+@Html.ActionLink("Back to List", "Index")
 </p>
 
 
 
 @if (User.Identity.IsAuthenticated)
 {
-    var comment = new Comment();
+    var comment = new Comment();*@
     <!--Comments-->
-    using (Html.BeginForm("Create", "Comments", new { BlogId = Model.Id }, FormMethod.Post))
+    @*using (Html.BeginForm("Create", "Comments", new { BlogId = Model.Id }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.Hidden("Comment.PostId", Model.Id)
@@ -130,4 +376,4 @@ else
 {
     <h4 class="text-center">Login or Register to see and leave comments</h4>
     <p class="text-center">@Html.ActionLink("Login", "Login", "Account", new { returnUrl = Url.Action("Details", "BlogPosts", new { Slug = Model.Slug }) }, new { @class = "btn btn-rose" })</p>
-}
+}*@
