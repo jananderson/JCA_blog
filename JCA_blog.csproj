@@ -1745,6 +1745,7 @@
     <Content Include="Template\assets\motive-colors\motive-orange.less" />
     <Content Include="Template\assets\motive-colors\motive-pink.less" />
     <Content Include="Template\assets\motive-colors\motive-yellow.less" />
+    <Content Include="Views\BlogPosts\IndexOriginalBlogTemplateWithNotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

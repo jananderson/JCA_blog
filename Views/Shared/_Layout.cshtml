@@ -27,8 +27,6 @@
 
     <script src="~/Template/assets/js/modernizr.custom.js"></script>
 </head>
-<header class="ct-mediaSection ct-section" id="header" data-stellar-background-ratio="0.3" data-height="200" data-type="parallax" data-bg-image="~/Template/assets/images/content/computerservice/computer-home-main-bg.jpg" data-bg-image-mobile="~/Template/assets/images/content/computerservice/computer-home-main-bg.jpg">
-</header>
 <body class="cssAnimate">
     <div class="ct-preloader">
         <div class="ct-preloader-content">
@@ -89,14 +87,49 @@
                 <div class="container">
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li>@Html.ActionLink("Home", "Index", "BlogPosts")</li>
-                            @*<li>@Html.ActionLink("About", "About", "Home")</li>*@
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li class="dropdown">
+                                <a href="indexmulti.html">Home</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="indexmulti.html">Home - Parallax</a>
+                                        <a href="header.html">Home - Video</a>
+                                        <a href="header2.html">Home - Kenburns</a>
+                                        <a href="header3.html">Home - Slider</a>
+                                        <a href="header4.html">Home - Slice Effect</a>
+                                        <a href="header5.html">Home - Push Effect</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="prices.html">Pricing</a></li>
+                            <li><a href="materials.html">Materials</a></li>
+                            <li><a href="works.html">Works</a></li>
+                            <li>@Html.ActionLink("Blog", "Index", "BlogPosts")</li>
+                            <li class="dropdown">
+                                <a href="contact.html">Contact</a>
+                                <ul class="dropdown-menu ">
+                                    <li>
+                                        <span>Monday - Friday</span>
+                                        <p>9:00AM - 6:00PM</p>
+                                        <span>Saturday</span>
+                                        <p>10:00AM - 4:00PM</p>
+                                        <span>Sunday</span>
+                                        <p>CLOSED</p>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
-                        @Html.Partial("_LoginPartial")
+                        @*<ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Home", "Index", "BlogPosts")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")*@
                     </div>
                 </div>
             </nav>
+            <header class="ct-mediaSection ct-section" id="header" data-stellar-background-ratio="0.3" data-height="200" data-type="parallax" data-bg-image="~/Template/assets/images/content/computerservice/computer-blog-image-1.jpg" data-bg-image-mobile="~/Template/assets/images/content/computerservice/computer-blog-image-1.jpg">
+            </header>
 
             @RenderBody()
             <hr />
@@ -110,34 +143,34 @@
                 </div>
             </footer>
         </div>
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+            </div>
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
 
 
-    <script src="~/Template/assets/js/jquery.min.js"></script>
-    <script src="~/Template/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/Template/assets/js/helpers.js"></script>
+            <script src="~/Template/assets/js/jquery.min.js"></script>
+            <script src="~/Template/assets/bootstrap/js/bootstrap.min.js"></script>
+            <script src="~/Template/assets/js/helpers.js"></script>
 
-    <script src="~/Template/assets/js/device.min.js"></script>
-    <script src="~/Template/assets/js/jquery.browser.min.js"></script>
-    <script src="~/Template/assets/js/snap.min.js"></script>
-    <script src="~/Template/assets/js/jquery.appear.js"></script>
+            <script src="~/Template/assets/js/device.min.js"></script>
+            <script src="~/Template/assets/js/jquery.browser.min.js"></script>
+            <script src="~/Template/assets/js/snap.min.js"></script>
+            <script src="~/Template/assets/js/jquery.appear.js"></script>
 
-    <script src="~/Template/assets/js/smoothscroll.js"></script>
+            <script src="~/Template/assets/js/smoothscroll.js"></script>
 
-    <script src="~/Template/assets/js/select2/select2.min.js"></script>
-    <script src="~/Template/assets/js/select2/init.js"></script>
+            <script src="~/Template/assets/js/select2/select2.min.js"></script>
+            <script src="~/Template/assets/js/select2/init.js"></script>
 
-    <script src="~/Template/assets/js/ct-mediaSection/jquery.stellar.min.js"></script>
-    <script src="~/Template/assets/js/ct-mediaSection/init.js"></script>
+            <script src="~/Template/assets/js/ct-mediaSection/jquery.stellar.min.js"></script>
+            <script src="~/Template/assets/js/ct-mediaSection/init.js"></script>
 
-    <script src="~/Template/assets/js/slick/slick.min.js"></script>
-    <script src="~/Template/assets/js/slick/init.js"></script>
+            <script src="~/Template/assets/js/slick/slick.min.js"></script>
+            <script src="~/Template/assets/js/slick/init.js"></script>
 
-    <script src="~/Template/assets/js/main.js"></script>
+            <script src="~/Template/assets/js/main.js"></script>
 
 
-</body>
-</html>
+        </body>
+        </html>
