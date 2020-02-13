@@ -643,6 +643,7 @@
     <Content Include="Template\assets\images\content\computerservice\computer-materials-stuff-2.jpg" />
     <Content Include="Template\assets\images\content\computerservice\computer-materials-stuff-3.jpg" />
     <Content Include="Template\assets\images\content\computerservice\computer-materials-stuff-4.jpg" />
+    <Content Include="Template\assets\images\content\computerservice\favicon-32x32.png" />
     <Content Include="Template\assets\images\content\computerservice\logo-footer.png" />
     <Content Include="Template\assets\images\content\computerservice\logo-solid.png" />
     <Content Include="Template\assets\images\content\computerservice\logo.png" />

@@ -27,21 +27,21 @@
                 {
                     <article class="ct-articleBox ct-articleBox--default">
                         <div class="ct-articleBox-media">
-                            @*<img src="~/Template/assets/images/content/computerservice/computer-blog-image-1.jpg" alt=""/>*@
                             <img src="@item.MediaURL" alt="" />
                         </div>
                         <div class="ct-articleBox-titleBox">
                             <div class="ct-articleBox-meta">
                                 <span>@Html.DisplayFor(modelItem => item.Created)</span>
                             </div>
-                            <a href="blog-single.html"><h4>@Html.DisplayFor(modelItem => item.Title)</h4></a>
+                            <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
                         </div>
                         <div class="ct-articleBox-description">
                             @Html.Raw(item.Body)
                         </div>
                         <a class="ct-articleBox-button">
-
-                            @Html.ActionLink("Read more", "Details", new { Slug = item.Slug })
+                            <div class="ct-articleBox-button">
+                                @Html.ActionLink("Read more", "Details", new { Slug = item.Slug })<i class="fa fa-angle-right"></i>
+                            </div>
                         </a>
                         <div class="row">
                             @if (User.IsInRole("Admin"))
@@ -55,17 +55,11 @@
                 }
                 <div class="ct-pagination">
                     <div class="col-md-2">
-                        <ul class="pager text-left">
-                            @*<li><a href="#"><i class="fa fa-angle-left"></i>  Previous page</a></li>*@
-                        </ul>
                     </div>
                     <div class="col-md-8 text-center">
                         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
                     </div>
                     <div class="col-md-2">
-                        <ul class="pager text-right">
-                            @*<li><a href="#">Next page  <i class="fa fa-angle-right"></i></a></li>*@
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -74,7 +68,6 @@
                     <div class="col-sm-6 col-md-12">
                         <section class="widget">
                             <div class="widget-inner">
-
                                 <div class="ct-search-widget">
                                     @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
                                     {
@@ -194,49 +187,5 @@
                 </div>
             </div>
         </div>
-        </div>
-    </section>
-
-
-
-    @*@foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Updated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                    @Html.ActionLink("Details", "Details", new { Slug = item.Slug })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Slug)
-                </td>
-                <td>
-                    @Html.Raw(item.Body)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => @item.MediaURL)
-                </td>
-                <td>
-                    @if (item.MediaURL != null)
-                    {
-                        <img class="img-responsive" src="@item.MediaURL" alt="">
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Published)
-                </td>
-                <td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                        @Html.ActionLink("Details", "Details", new { Slug = item.Slug })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    }
-                </td>
-            </tr>
-        }*@
+    </div>
+</section>
