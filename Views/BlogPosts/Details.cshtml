@@ -111,18 +111,20 @@
                             </p>
                         </section>
                     </div>
+
                     <p>
                         @if (User.IsInRole("Admin"))
                         {
                             @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
                         }
                     </p>
-                    <p>
-                        @Html.ActionLink("Back to List", "Index")
-                    </p>
+
                     <div class="col-md-3 ct-js-sidebar">
                         <div class="row">
                             <div class="col-sm-6 col-md-12">
+                                <p>
+                                    @Html.ActionLink("Back to List", "Index")
+                                </p>
                                 <section class="widget">
                                     <div class="widget-inner">
                                         <div class="ct-search-widget">

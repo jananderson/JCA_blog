@@ -12,19 +12,21 @@
             <h2 class="ct-js-animation--item ct-motive-text" data-when="enter" data-from="0" data-to="1" data-opacity="0" data-translatey="-50"><span class="ct-u-hdr3">Jan's</span> blog</h2>
         </header>
         <div class="row" style="margin-bottom: 20px; margin-left: 20px;">
-            <p>
-                <br />
-                @if (User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-xs" })
-                }
-                <br />
-            </p>
-        </div>
-        <div class="row">
-            <div class="col-md-9">
-                @foreach (var item in Model)
-                {
+            <div class="col-lg-12">
+                <p>
+                    <br />
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-xs" })
+                    }
+                    <br />
+                </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    @foreach (var item in Model)
+                    {
                     <article class="ct-articleBox ct-articleBox--default">
                         <div class="ct-articleBox-media">
                             <img src="@item.MediaURL" alt="" />
@@ -51,141 +53,142 @@
                                 @Html.ActionLink(" Delete ", "Delete", new { id = item.Id })
                             }
                         </div>
+                        <div class="clearfix"></div>
                     </article>
-                }
-                <div class="ct-pagination">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-8 text-center">
-                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
-                    </div>
-                    <div class="col-md-2">
+                    }
+                    <div class="ct-pagination">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8 text-center">
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+                        </div>
+                        <div class="col-md-2">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3 ct-js-sidebar">
-                <div class="row">
-                    <div class="col-sm-6 col-md-12">
-                        <section class="widget">
-                            <div class="widget-inner">
-                                <div class="ct-search-widget">
-                                    @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
-                                    {
-                                        <div class="form-group ct-form-group-label--float">
-                                            <input id="searchStr" name="searchStr" class="form-control input-lg" type="text" placeholder="Search">
-                                            <div class="ct-input-group-btn">
-                                                <button id="searchStr" name="searchStr" class="btn btn-primary" type="submit">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
+                <div class="col-md-3 ct-js-sidebar">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-12">
+                            <section class="widget">
+                                <div class="widget-inner">
+                                    <div class="ct-search-widget">
+                                        @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+                                        {
+                                            <div class="form-group ct-form-group-label--float">
+                                                <input id="searchStr" name="searchStr" class="form-control input-lg" type="text" placeholder="Search Jan's Blog">
+                                                <div class="ct-input-group-btn">
+                                                    <button id="searchStr" name="searchStr" class="btn btn-primary" type="submit">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="col-sm-6 col-md-12">
-                        <section class="widget">
-                            <div class="widget-inner">
-                                <h4 class="text-uppercase">Categories</h4>
-                                <ul>
-                                    <li class="current-cat">
-                                        <a href="#" title="View all posts filed under Technologhy">
-                                            Creative<span class="ct-blogWidget-count"> (2)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="View all posts filed under Creative Ideas">
-                                            Design<span class="ct-blogWidget-count"> (9)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="View all posts filed under Latest Gadgets">
-                                            Image<span class="ct-blogWidget-count"> (2)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="View all posts filed under Inspirations">
-                                            Photography<span class="ct-blogWidget-count"> (9)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="View all posts filed under Inspirations">
-                                            Videos<span class="ct-blogWidget-count"> (4)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="View all posts filed under Inspirations">
-                                            Wordpress<span class="ct-blogWidget-count"> (4)</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="col-sm-6 col-md-12">
-                        <section class="widget ct-widget-latestPosts">
-                            <div class="widget-inner">
-                                <h4 class="text-uppercase">Recent Posts</h4>
-                                <ul>
-                                    <li>
-                                        <div class="widget-latest-posts-content">
-                                            <span>
-                                                March 4, 2014
-                                            </span>
-                                            <a href="#" title="View Post">This is a standard post format with preview picture</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="widget-latest-posts-content">
-                                            <span>
-                                                March 4, 2014
-                                            </span>
-                                            <a href="#" title="View Post">Gallery post format: post with multiple images</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="widget-latest-posts-content">
-                                            <span>
-                                                March 4, 2014
-                                            </span>
-                                            <a href="#" title="View Post">Link post format</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="col-sm-6 col-md-12">
-                        <section class="widget ct-widget-archives">
-                            <div class="widget-inner">
-                                <h4 class="text-uppercase">Archives</h4>
-                                <select class="ct-js-select">
-                                    <option value="month">Select  month</option>
-                                    <option value="January">January</option>
-                                    <option value="February">February</option>
-                                    <option value="March">March</option>
-                                </select>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="col-sm-6 col-md-12">
-                        <section class="widget ct-widget-archives">
-                            <div class="widget-inner">
-                                <h4 class="text-uppercase">Tags</h4>
-                                <div class="tagcloud">
-                                    <a href="#" title="">Creative</a>
-                                    <a href="#" title="">Design</a>
-                                    <a href="#" title="">Image</a>
-                                    <a href="#" title="">Photography</a>
-                                    <a href="#" title="">Videos</a>
-                                    <a href="#" title="">Wordpress</a>
+                            </section>
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                            <section class="widget">
+                                <div class="widget-inner">
+                                    <h4 class="text-uppercase">Categories</h4>
+                                    <ul>
+                                        <li class="current-cat">
+                                            <a href="#" title="View all posts filed under Technologhy">
+                                                Creative<span class="ct-blogWidget-count"> (2)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="View all posts filed under Creative Ideas">
+                                                Design<span class="ct-blogWidget-count"> (9)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="View all posts filed under Latest Gadgets">
+                                                Image<span class="ct-blogWidget-count"> (2)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="View all posts filed under Inspirations">
+                                                Photography<span class="ct-blogWidget-count"> (9)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="View all posts filed under Inspirations">
+                                                Videos<span class="ct-blogWidget-count"> (4)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="View all posts filed under Inspirations">
+                                                Wordpress<span class="ct-blogWidget-count"> (4)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                            <section class="widget ct-widget-latestPosts">
+                                <div class="widget-inner">
+                                    <h4 class="text-uppercase">Recent Posts</h4>
+                                    <ul>
+                                        <li>
+                                            <div class="widget-latest-posts-content">
+                                                <span>
+                                                    March 4, 2014
+                                                </span>
+                                                <a href="#" title="View Post">This is a standard post format with preview picture</a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="widget-latest-posts-content">
+                                                <span>
+                                                    March 4, 2014
+                                                </span>
+                                                <a href="#" title="View Post">Gallery post format: post with multiple images</a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="widget-latest-posts-content">
+                                                <span>
+                                                    March 4, 2014
+                                                </span>
+                                                <a href="#" title="View Post">Link post format</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                            <section class="widget ct-widget-archives">
+                                <div class="widget-inner">
+                                    <h4 class="text-uppercase">Archives</h4>
+                                    <select class="ct-js-select">
+                                        <option value="month">Select  month</option>
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                    </select>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                            <section class="widget ct-widget-archives">
+                                <div class="widget-inner">
+                                    <h4 class="text-uppercase">Tags</h4>
+                                    <div class="tagcloud">
+                                        <a href="#" title="">Creative</a>
+                                        <a href="#" title="">Design</a>
+                                        <a href="#" title="">Image</a>
+                                        <a href="#" title="">Photography</a>
+                                        <a href="#" title="">Videos</a>
+                                        <a href="#" title="">Wordpress</a>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
