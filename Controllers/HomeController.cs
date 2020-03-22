@@ -46,11 +46,12 @@ namespace JCA_blog.Controllers
                     var svc = new EmailService();
                     var msg = new IdentityMessage()
                     {
-                        Subject = "Contact From Portfolio Site",
+                        Subject = "Contact From Blog Site",
                         Body = string.Format(body, model.FromName, model.FromEmail, model.Body),
                         Destination = "jchristiananderson@gmail.com"
                     };
                     await svc.SendAsync(msg);
+                    ModelState.Clear();
                     return View();
                 }
                 catch (Exception ex)

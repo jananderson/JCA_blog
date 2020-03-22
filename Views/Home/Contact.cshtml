@@ -1,46 +1,56 @@
 ﻿@model JCA_blog.Models.EmailModel
 @{
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
     ViewBag.Title = "Contact";
 }
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <h4> Send me a message.</h4>
-    <hr />
-
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FromName)
+<div class="container h-100">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-sm-12 my-auto">
+            <h2 class="ct-js-animation--item ct-motive-text" data-when="enter" data-from="0" data-to="1" data-opacity="0" data-translatey="-50"><span class="ct-u-hdr3">Contact</span></h2>
+            <br />
+            <h4>Use the below form to get in touch!</h4>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control", placeholder = "example@email.com" })
-            @Html.ValidationMessageFor(m => m.FromEmail)
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-sm-12 my-auto">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger", enctype = "multipart/form-data", method = "post", name = "EmailContactForm" })
+                <div class="form-group row">
+                    <label for="input-email-field" class="col-sm-2 col-form-label">Your Name:</label>
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.FromName, new { @class = "form-control", placeholder = "Jane Doe", type = "text", name = "mail", id = "input-email" })
+                    </div>
+                    <div class="col-sm-4">
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input-name-field" class="col-sm-2 col-form-label">Your Email:</label>
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control", placeholder = "example@email.com", type = "text", name = "mail", id = "input-email" })
+                    </div>
+                    <div class="col-sm-4">
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input-name-field" class="col-sm-2 col-form-label">Your Message:</label>
+                    <div class="col-sm-6">
+                        @Html.TextAreaFor(m => m.Body, new { @class = "form-control", placeholder = "Your Message", type = "text", name = "mail", id = "input-email", rows = "5" })
+                    </div>
+                    <div class="col-sm-4">
+
+                    </div>
+                </div>
+                <div class="col-md-8" style="text-align:right;">
+                    <input type="submit" class="btn btn-primary" value="Send" />
+                </div>
+                <div class="col-md-4" style="text-align:right;">
+
+                </div>
+            }
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Body, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Body, new { htmlAttributes = new { @class = "form-control", rows = "5" } })
-            @Html.ValidationMessageFor(m => m.Body)
-        </div>
-        <div class="col-md-10">
-            <input type="submit" class="btn btn-primary" value="Send" />
-        </div>
-    </div>
-
-        <h2>@ViewBag.Title.</h2>
-        <h3>@ViewBag.Message</h3>
-        <address>
-            <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-            <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-        </address>
-
-        }
+</div>

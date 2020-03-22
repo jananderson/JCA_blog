@@ -411,6 +411,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="private.config" />
+    <None Include="Properties\PublishProfiles\janandersondevblog - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1560,7 +1561,9 @@
       <DependentUpon>aspnet-JCA_blog-20200113044242.mdf</DependentUpon>
     </Content>
     <Content Include="Uploads\image-manipulation-resize-to-100x100-stretched-desert-0.jpg__preview.jpg" />
+    <Content Include="Uploads\linkedinlogo %282%29.png" />
     <Content Include="Uploads\profile-picture.jpg" />
+    <Content Include="Uploads\what-is-coding-300x200.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1747,6 +1750,7 @@
     <Content Include="Template\assets\motive-colors\motive-pink.less" />
     <Content Include="Template\assets\motive-colors\motive-yellow.less" />
     <Content Include="Views\BlogPosts\IndexOriginalBlogTemplateWithNotes.cshtml" />
+    <Content Include="Views\Shared\_LayoutAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

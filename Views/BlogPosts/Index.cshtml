@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-10">
                     @foreach (var item in Model)
                     {
                     <article class="ct-articleBox ct-articleBox--default">
@@ -45,12 +45,12 @@
                                 @Html.ActionLink("Read more", "Details", new { Slug = item.Slug })<i class="fa fa-angle-right"></i>
                             </div>
                         </a>
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 20px; margin-top: 20px; margin-left: 20px;">
                             @if (User.IsInRole("Admin"))
                             {
-                                @Html.ActionLink(" Edit |", "Edit", new { id = item.Id })
-                                @Html.ActionLink(" Details |", "Details", new { Slug = item.Slug })
-                                @Html.ActionLink(" Delete ", "Delete", new { id = item.Id })
+                                <a href="@Url.Action("Edit", new { id = item.Id})" type="button" class="btn btn-primary btn-sm" title="Edit">Edit</a>
+                                <a href="@Url.Action("Details", new { Slug = item.Slug})" type="button" class="btn btn-primary btn-sm" title="Details">Details</a>
+                                <a href="@Url.Action("Delete", new { id = item.Id})" type="button" class="btn btn-primary btn-sm" title="Delete">Delete</a>
                             }
                         </div>
                         <div class="clearfix"></div>
@@ -66,12 +66,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 ct-js-sidebar">
+                <div class="col-md-2 ct-js-sidebar">
                     <div class="row">
                         <div class="col-sm-6 col-md-12">
                             <section class="widget">
                                 <div class="widget-inner">
-                                    <div class="ct-search-widget">
+                                    <div class="ct-search-widget" >
                                         @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
                                         {
                                             <div class="form-group ct-form-group-label--float">
@@ -83,106 +83,6 @@
                                                 </div>
                                             </div>
                                         }
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="col-sm-6 col-md-12">
-                            <section class="widget">
-                                <div class="widget-inner">
-                                    <h4 class="text-uppercase">Categories</h4>
-                                    <ul>
-                                        <li class="current-cat">
-                                            <a href="#" title="View all posts filed under Technologhy">
-                                                Creative<span class="ct-blogWidget-count"> (2)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="View all posts filed under Creative Ideas">
-                                                Design<span class="ct-blogWidget-count"> (9)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="View all posts filed under Latest Gadgets">
-                                                Image<span class="ct-blogWidget-count"> (2)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="View all posts filed under Inspirations">
-                                                Photography<span class="ct-blogWidget-count"> (9)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="View all posts filed under Inspirations">
-                                                Videos<span class="ct-blogWidget-count"> (4)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="View all posts filed under Inspirations">
-                                                Wordpress<span class="ct-blogWidget-count"> (4)</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="col-sm-6 col-md-12">
-                            <section class="widget ct-widget-latestPosts">
-                                <div class="widget-inner">
-                                    <h4 class="text-uppercase">Recent Posts</h4>
-                                    <ul>
-                                        <li>
-                                            <div class="widget-latest-posts-content">
-                                                <span>
-                                                    March 4, 2014
-                                                </span>
-                                                <a href="#" title="View Post">This is a standard post format with preview picture</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="widget-latest-posts-content">
-                                                <span>
-                                                    March 4, 2014
-                                                </span>
-                                                <a href="#" title="View Post">Gallery post format: post with multiple images</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="widget-latest-posts-content">
-                                                <span>
-                                                    March 4, 2014
-                                                </span>
-                                                <a href="#" title="View Post">Link post format</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="col-sm-6 col-md-12">
-                            <section class="widget ct-widget-archives">
-                                <div class="widget-inner">
-                                    <h4 class="text-uppercase">Archives</h4>
-                                    <select class="ct-js-select">
-                                        <option value="month">Select  month</option>
-                                        <option value="January">January</option>
-                                        <option value="February">February</option>
-                                        <option value="March">March</option>
-                                    </select>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="col-sm-6 col-md-12">
-                            <section class="widget ct-widget-archives">
-                                <div class="widget-inner">
-                                    <h4 class="text-uppercase">Tags</h4>
-                                    <div class="tagcloud">
-                                        <a href="#" title="">Creative</a>
-                                        <a href="#" title="">Design</a>
-                                        <a href="#" title="">Image</a>
-                                        <a href="#" title="">Photography</a>
-                                        <a href="#" title="">Videos</a>
-                                        <a href="#" title="">Wordpress</a>
                                     </div>
                                 </div>
                             </section>

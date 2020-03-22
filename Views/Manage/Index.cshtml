@@ -1,9 +1,51 @@
 ﻿@model JCA_blog.Models.IndexViewModel
 @{
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
+    <div class="container h-100">
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-sm-12 my-auto">
+                <h2 class="ct-js-animation--item ct-motive-text" data-when="enter" data-from="0" data-to="1" data-opacity="0" data-translatey="-50"><span class="ct-u-hdr3">Manage Your Account</span></h2>
+                <br />
+                <h4>Manage your account settings below.</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8" style="padding-top: 10px;">
+                    <div class="form-group" style="padding-top: 10px;">
+                        <label for="input-email-field" class="col-sm-2 col-form-label">Password:</label>
+                        <div class="col-md-10">
+                            [
+                            @if (Model.HasPassword)
+                            {
+                                @Html.ActionLink("Change your password", "ChangePassword")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Create", "SetPassword")
+                            }
+                            ]
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-top: 10px;">
+                        <label for="input-email-field" class="col-sm-2 col-form-label">External Logins:</label>
+                        <div class="col-md-10">
+                            @Model.Logins.Count [
+                            @Html.ActionLink("Manage", "ManageLogins") ]
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+
+@*<h2>@ViewBag.Title.</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
@@ -27,7 +69,7 @@
         <dd>
             @Model.Logins.Count [
             @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
+        </dd>*@
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
              
@@ -56,12 +98,12 @@
                 }
             </dd>
         *@
-        <dt>Two-Factor Authentication:</dt>
+        @*<dt>Two-Factor Authentication:</dt>
         <dd>
             <p>
                 There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
+            </p>*@
             @*@if (Model.TwoFactor)
                 {
                     using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -82,6 +124,6 @@
                         </text>
                     }
                 }*@
-        </dd>
+        @*</dd>
     </dl>
-</div>
+</div>*@

@@ -75,7 +75,7 @@
                 <li>@Html.Partial("_LoginPartial")</li>
             </ul>
         </div>
-        <div id="ct-js-wrapper" class="ct-pageWrapper">
+        <div id="ct-js-wrapper">
             <nav class="navbar ct-navbar--transparent ct-navbar--stickyToTop ct-navbar--withTopbar" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -101,6 +101,7 @@
         To get the fix for this header image. Their provided html does not match the demo site, specifically the back-groung image inline url mixed in with inline styling and the ct-u-backgroundfix css class*@
 
             @RenderBody()
+            <div class="footer navbar-fixed-bottom">
                 <footer>
                     <div class="container">
                         <div class="row">
@@ -112,6 +113,7 @@
                 </footer>
              </div>
             </div>
+        </div>
     <!-- JavaScripts -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
